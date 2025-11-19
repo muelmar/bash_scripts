@@ -24,4 +24,5 @@ gawk -F ',' 'BEGIN{ x=0}\
 		for  (key in t) { print t[key] "," key "," Titel[key] }\
 	}' all_orders.csv > all_orders_netted.csv 
 
-
+qsv join --left-anti Anzahl,isbn all_deliveries_netted.csv Anzahl,isbn all_orders_netted.csv 
+qsv join --right-anti Anzahl,isbn all_deliveries_netted.csv Anzahl,isbn all_orders_netted.csv 
