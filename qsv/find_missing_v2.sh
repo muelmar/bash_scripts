@@ -21,6 +21,7 @@ qsv replace -s isbn '[^0-9]' '' |\
 qsv behead -o tmp/all_deliveries.csv
 ########
 qsv select  --delimiter ';' ISBN,Anzahl,Titel Einkauf_Kunde_book_store.csv |\
+qsv search -s ISBN '^"?[0-9]' |\
 qsv replace -s ISBN '[^0-9]' '' |\
 qsv replace -s Titel ',' '' |\
 qsv behead -o tmp/all_orders.csv
