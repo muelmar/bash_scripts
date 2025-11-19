@@ -30,20 +30,9 @@ for f in "$vorname" "$rueckname" ; do
 done
 numpages_v=$(qpdf --show-npages $vorname)
 numpages_r=$(qpdf --show-npages $rueckname)
-#numpages_v=$( pdftk $vorname dump_data | grep NumberOfPages)
-#numpages_v=${numpages_v/*:?/}
-#numpages_r=$( pdftk $rueckname dump_data | grep NumberOfPages)
-numpages_r=${numpages_r/*:?/}
 if (( numpages_v != numpages_r )) ; then
    echo "Number of pages in $vorname not equal pages in $nachname"
    exit 4
 fi
-cmd="pdfjam"
-last=$numpages_v
-for (( i=1; i<=numpages_v; i++ )) ; do
-     cmd+=" $vorname $i $rueckname $last"
-	(( last-- ))
-done
-cmd+=" -o $outfilename"
-$cmd
+qpdf --collate --empty --pages  "$vorname"  1-z "$rueckname"  z-1  -- "$outfilename"
 
