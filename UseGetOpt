@@ -1,0 +1,61 @@
+# file: UseGetOpt
+# UseGetOpt.sh parameter-completion
+
+_UseGetOpt ()   #  By convention, the function name
+{                 #+ starts with an underscore.
+  local cur
+  # Pointer to current completion word.
+  # By convention, it's named "cur" but this isn't strictly necessary.
+
+  COMPREPLY=()   # Array variable storing the possible completions.
+  cur=${COMP_WORDS[COMP_CWORD]}
+  if (( COMP_CWORD == 2 )) ; then
+  case "$cur" in
+    -*)
+    COMPREPLY=( $( compgen -W '-a -d -f -l -t -h --aoption --debug \
+                               --file --log --test --help --' -- $cur ) );;
+#   Generate the completion matches and load them into $COMPREPLY array.
+    [a-z]*) 
+    COMPREPLY=( $( compgen -W 'mumboers
+mumcommb
+mumhuklv
+mumkgeld
+mumpostb
+mumsonst
+mumsutor
+mumtkfam
+mumvwban
+stehuklv
+stetkvol
+paddyban
+paddytkr
+paddyson
+kevinban
+kevintkr
+kevinson
+pfb18jun
+pfb18avu
+pfb18abf
+hukfahrz
+hukhaftp
+rechallg
+pfb20nko
+pfb20son
+erballia
+erbhypob
+erbpostb
+erbsonst
+bergstra
+hartenbe
+watfords' -- $cur ) );;
+#   yy)
+#   zz)
+  esac
+  else
+    COMPREPLY=( $( compgen -f  $cur ) );
+  fi
+  return 0
+}
+
+complete -F _UseGetOpt -o filenames ./UseGetOpt.sh
+#        ^^ ^^^^^^^^^^^^  Invokes the function _UseGetOpt.
